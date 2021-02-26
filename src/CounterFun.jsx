@@ -1,7 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import classes from './styles.module.css';
 
-export default function CounterFun() {
-  const [count, setCount] = useState(0);
+function calculateState() {
+  console.log('Lazy Initilizer');
+  return 0;
+}
+
+export default function CounterFun({condition}) {
+  // Lazy Initializer
+  const [count, setCount] = useState(calculateState);
+  console.log('Render');
+
+  useEffect(() => {
+    console.log('useEffect');
+    // console.log('useEffect count', count);
+    return () => {
+      console.log('useEffect clean up');
+      // console.log('useEffect clean up', count);
+    };
+  }, [count, condition]);
 
   function increment() {
     console.log(count);
@@ -20,7 +37,7 @@ export default function CounterFun() {
 
   return (
     <div>
-      <span>{count}</span>
+      <span className={classes.heading}>{count}</span>
       <br />
       <button onClick={increment}>Inc</button>
       <button onClick={decrement}>Dec</button>

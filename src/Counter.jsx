@@ -10,6 +10,29 @@ export default class Counter extends React.Component {
     this.increment = this.increment.bind(this);
     this.decrement = this.decrement.bind(this);
     this.reset = this.reset.bind(this);
+    console.log('CONSTRUCTOR');
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('GET_DERIVED');
+    return null;
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log('SNAPSHOT');
+    return null;
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('SHOULD_COMPONENT_UPDATE');
+    if (
+      nextProps.maxCount === this.props.maxCount &&
+      nextProps.step === this.props.step &&
+      nextState.count === this.state.count
+    ) {
+      return false;
+    }
+    return true;
   }
 
   increment() {
@@ -35,7 +58,20 @@ export default class Counter extends React.Component {
     this.setState({ count: 0 });
   }
 
+  componentDidMount() {
+    console.log('COMPONENT_DID_MOUNT');
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('COMPONENT_DID_UPDATE');
+  }
+
+  componentWillUnmount() {
+    console.log('COMPONENT_WILL_UNMOUNT');
+  }
+
   render() {
+    console.log('RENDER');
     return (
       <div>
         <span>{this.state.count}</span>
