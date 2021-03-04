@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
+import counterReducer from './reducer';
 import classes from './styles.module.css';
 
 function calculateState() {
@@ -6,9 +7,10 @@ function calculateState() {
   return 0;
 }
 
-export default function CounterFun({condition}) {
+function CounterFun() {
   // Lazy Initializer
-  const [count, setCount] = useState(calculateState);
+  // const [count, setCount] = useState(calculateState);
+  const [count, dispatch] = useReducer(counterReducer, 0);
   console.log('Render');
 
   useEffect(() => {
@@ -18,21 +20,26 @@ export default function CounterFun({condition}) {
       console.log('useEffect clean up');
       // console.log('useEffect clean up', count);
     };
-  }, [count, condition]);
+  }, [count]);
 
   function increment() {
+    dispatch('INC');
+    dispatch('INC');
+    dispatch('INC');
     console.log(count);
-    setCount(prevCount => prevCount + 1);
-    setCount(prevCount => prevCount + 1);
-    setCount(prevCount => prevCount + 1);
+    // setCount(prevCount => prevCount + 1);
+    // setCount(prevCount => prevCount + 1);
+    // setCount(prevCount => prevCount + 1);
   }
 
   function decrement() {
-    setCount(count - 1);
+    dispatch('DEC');
+    // setCount(count - 1);
   }
 
   function reset() {
-    setCount(0);
+    dispatch('RESET');
+    // setCount(0);
   }
 
   return (
@@ -45,3 +52,5 @@ export default function CounterFun({condition}) {
     </div>
   );
 }
+
+export default React.memo(CounterFun);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Counter extends React.Component {
+export default class Counter extends React.PureComponent {
   state = {
     count: 0
   };
@@ -23,17 +23,17 @@ export default class Counter extends React.Component {
     return null;
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('SHOULD_COMPONENT_UPDATE');
-    if (
-      nextProps.maxCount === this.props.maxCount &&
-      nextProps.step === this.props.step &&
-      nextState.count === this.state.count
-    ) {
-      return false;
-    }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('SHOULD_COMPONENT_UPDATE');
+  //   if (
+  //     nextProps.maxCount === this.props.maxCount &&
+  //     nextProps.step === this.props.step &&
+  //     nextState.count === this.state.count
+  //   ) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   increment() {
     // this.setState((prevState, props) => ({ count: prevState.count + 1 }));

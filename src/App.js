@@ -31,11 +31,11 @@ class App extends React.Component {
           </button>
         </div>
         {/* <Info name='Sanaz' /> */}
-        <InfoFun />
-        <Form />
-        {/* <CounterFun /> */}
+        {/* <InfoFun /> */}
+        {/* <Form /> */}
+        {/* <Counter /> */}
         {/* {content} */}
-        {/* <CounterFun condition={this.state.condition} /> */}
+        <CounterFun />
       </>
     );
   }
