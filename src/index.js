@@ -5,6 +5,7 @@ import App from './App';
 // import App from './hook-flow';
 // import App from './key';
 import reportWebVitals from './reportWebVitals';
+import AppClass from './AppClass';
 
 ReactDOM.render(
   <React.StrictMode>

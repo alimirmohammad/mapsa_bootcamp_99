@@ -1,4 +1,5 @@
 import React from 'react';
+import Child from './Child';
 
 const Grudge = ({ grudge, onRemove, onToggle }) => {
   console.log(grudge.person);
@@ -19,8 +20,9 @@ const Grudge = ({ grudge, onRemove, onToggle }) => {
         {grudge.reason}
       </span>
       <button onClick={() => onRemove(grudge.id)}>x</button>
+      <Child />
     </li>
   );
 };
 
-export default React.memo(Grudge);
+export default Grudge;
