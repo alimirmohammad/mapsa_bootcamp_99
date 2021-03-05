@@ -1,4 +1,8 @@
+import React from 'react';
+
 const Grudge = ({ grudge, onRemove, onToggle }) => {
+  console.log(grudge.person);
+
   return (
     <li>
       <input
@@ -19,4 +23,4 @@ const Grudge = ({ grudge, onRemove, onToggle }) => {
   );
 };
 
-export default Grudge;
+export default React.memo(Grudge);

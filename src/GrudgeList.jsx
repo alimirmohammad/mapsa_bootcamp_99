@@ -1,72 +1,72 @@
-import { useReducer, useState ,useEffect } from "react";
+import { useReducer, useState, useEffect, useCallback } from 'react';
 import {
   addGrudgeAction,
   removeGrudgeAction,
-  toggleForgivenessAction,
-} from "./actions";
-import Grudge from "./Grudge";
-import GrudgeItem from "./grudge.model";
-import grudgeReducer from "./reducer";
+  toggleForgivenessAction
+} from './actions';
+import Grudge from './Grudge';
+import GrudgeItem from './grudge.model';
+import grudgeReducer from './reducer';
 
-const firstState = () =>{
+const firstState = initialState => {
+  console.log('IS LAZY?');
+  const x = localStorage.getItem('GRUDGE');
+  return x ? JSON.parse(x) : initialState;
+};
 
- const x = localStorage.getItem("GRUDGE")
- return x ? JSON.parse(x) : []
-
-}
 const GrudgeList = () => {
   // const [items, setItems] = useState([]);
-  const [items, dispatch] = useReducer(grudgeReducer, firstState());
-  const [personName, setPersonName] = useState("");
-  const [reason, setReason] = useState("");
-
+  const [items, dispatch] = useReducer(grudgeReducer, [], firstState);
+  const [personName, setPersonName] = useState('Vahid');
+  const [reason, setReason] = useState('');
 
   useEffect(() => {
-    const x = JSON.stringify(items)
-     localStorage.setItem("GRUDGE" , x )
+    const x = JSON.stringify(items);
+    localStorage.setItem('GRUDGE', x);
+  }, [items]);
 
-  }, [items])
-
-  const addGrudge = (event) => {
+  const addGrudge = event => {
     event.preventDefault();
     dispatch(addGrudgeAction(personName, reason));
-    setPersonName("");
-    setReason("");
+    setPersonName('');
+    setReason('');
   };
 
-  const removeGrudge = (id) => {
+  const removeGrudge = useCallback(id => {
     dispatch(removeGrudgeAction(id));
-  };
+  }, []);
 
-  const toggleForgiveness = (id) => {
+  const toggleForgiveness = useCallback(id => {
+    console.log('p', personName);
     dispatch(toggleForgivenessAction(id));
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const changeInput = () => setPersonName("Forough");
+  const changeInput = () => setPersonName('Forough');
 
   return (
     <div>
       <form onSubmit={addGrudge}>
         <input
-          type="text"
-          name="person"
-          placeholder="person"
+          type='text'
+          name='person'
+          placeholder='person'
           value={personName}
-          onChange={(event) => setPersonName(event.target.value)}
+          onChange={event => setPersonName(event.target.value)}
         />
         <input
-          type="text"
-          name="reason"
-          placeholder="reason"
+          type='text'
+          name='reason'
+          placeholder='reason'
           value={reason}
-          onChange={(event) => setReason(event.target.value)}
+          onChange={event => setReason(event.target.value)}
         />
-        <input type="submit" />
+        <input type='submit' />
       </form>
       <button onClick={changeInput}>Change</button>
 
       <ul>
-        {items.map((item) => (
+        {items.map(item => (
           <Grudge
             key={item.id}
             grudge={item}
