@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import counterReducer from './reducer';
+import { useSelector, useDispatch } from 'react-redux';
+import counterReducer, { asyncInc, dec, inc, res } from './reducer';
 import classes from './styles.module.css';
 
 function calculateState() {
@@ -10,7 +11,9 @@ function calculateState() {
 function CounterFun() {
   // Lazy Initializer
   // const [count, setCount] = useState(calculateState);
-  const [count, dispatch] = useReducer(counterReducer, 0);
+  // const [count, dispatch] = useReducer(counterReducer, 0);
+  const count = useSelector(state => state.value);
+  const dispatch = useDispatch();
   console.log('Render');
 
   useEffect(() => {
@@ -23,9 +26,9 @@ function CounterFun() {
   }, [count]);
 
   function increment() {
-    dispatch('INC');
-    dispatch('INC');
-    dispatch('INC');
+    dispatch(inc());
+    dispatch(inc());
+    dispatch(inc());
     console.log(count);
     // setCount(prevCount => prevCount + 1);
     // setCount(prevCount => prevCount + 1);
@@ -33,13 +36,17 @@ function CounterFun() {
   }
 
   function decrement() {
-    dispatch('DEC');
+    dispatch(dec());
     // setCount(count - 1);
   }
 
   function reset() {
-    dispatch('RESET');
+    dispatch(res());
     // setCount(0);
+  }
+
+  function asyncIncrement() {
+    dispatch(asyncInc());
   }
 
   return (
@@ -49,6 +56,8 @@ function CounterFun() {
       <button onClick={increment}>Inc</button>
       <button onClick={decrement}>Dec</button>
       <button onClick={reset}>Reset</button>
+      <br />
+      <button onClick={asyncIncrement}>Async Inc</button>
     </div>
   );
 }
