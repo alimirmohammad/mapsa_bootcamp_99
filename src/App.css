@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.link {
+  text-decoration: none;
+  color: green;
+}
+
+.active-link {
+  color: orangered;
+}

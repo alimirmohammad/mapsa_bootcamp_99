@@ -5,11 +5,13 @@ import App from './App';
 // import App from './hook-flow';
 // import App from './key';
 import reportWebVitals from './reportWebVitals';
-import AppClass from './AppClass';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
