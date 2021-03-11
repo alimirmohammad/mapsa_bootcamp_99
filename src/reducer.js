@@ -1,16 +1,25 @@
-const initialState = { value: 0 };
+import { createSlice } from '@reduxjs/toolkit';
 
-export const inc = () => ({ type: 'INC' });
-export const dec = () => ({ type: 'DEC' });
-export const res = () => ({ type: 'RESET' });
+// export const asyncInc = () => dispatch => {
+//   setTimeout(() => dispatch(inc()), 2000);
+// };
 
-export const asyncInc = () => dispatch => {
-  setTimeout(() => dispatch(inc()), 2000);
-};
+const countSlice = createSlice({
+  name: 'counter',
+  initialState: { value: 0 },
+  reducers: {
+    incremented(state, action) {
+      state.value++;
+    },
+    decremented(state, action) {
+      state.value--;
+    },
+    reset(state, action) {
+      state.value = 0;
+    }
+  }
+});
 
-export default function counterReducer(state = initialState, action) {
-  if (action.type === 'INC') return { ...state, value: state.value + 1 };
-  if (action.type === 'DEC') return { ...state, value: state.value - 1 };
-  if (action.type === 'RESET') return { ...state, value: 0 };
-  return state;
-}
+export const { incremented, decremented, reset } = countSlice.actions;
+
+export default countSlice.reducer;
