@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import counterReducer, { decremented, incremented, reset } from './reducer';
+import counterReducer, { decremented, incremented, reset, asyncInc } from './reducer';
 import classes from './styles.module.css';
 
 function calculateState() {
@@ -26,9 +26,9 @@ function CounterFun() {
   }, [count]);
 
   function increment() {
-    dispatch(incremented());
-    dispatch(incremented());
-    dispatch(incremented());
+    dispatch(incremented(5));
+    // dispatch(incremented());
+    // dispatch(incremented());
     console.log(count);
     // setCount(prevCount => prevCount + 1);
     // setCount(prevCount => prevCount + 1);
@@ -45,9 +45,9 @@ function CounterFun() {
     // setCount(0);
   }
 
-  // function asyncIncrement() {
-  //   dispatch(asyncInc());
-  // }
+  function asyncIncrement() {
+    dispatch(asyncInc(3));
+  }
 
   return (
     <div>
@@ -57,7 +57,7 @@ function CounterFun() {
       <button onClick={decrement}>Dec</button>
       <button onClick={resetFun}>Reset</button>
       <br />
-      {/* <button onClick={asyncIncrement}>Async Inc</button> */}
+      <button onClick={asyncIncrement}>Async Inc</button>
     </div>
   );
 }
