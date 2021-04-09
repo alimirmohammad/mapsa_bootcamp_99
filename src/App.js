@@ -1,11 +1,12 @@
-import About from './pages/About';
-import Home from './pages/Home';
-import Posts from './pages/Posts';
-import { Route, Switch, Link, NavLink, Redirect } from 'react-router-dom';
-import Post from './pages/Post';
+import { useEffect, lazy, Suspense } from 'react';
+import { Route, Switch, NavLink, Redirect } from 'react-router-dom';
 import './App.css';
-import NotFound from './pages/NotFound';
-import { useEffect } from 'react';
+
+const About = lazy(() => import('./pages/About'));
+const Home = lazy(() => import('./pages/Home'));
+const Posts = lazy(() => import('./pages/Posts'));
+const Post = lazy(() => import('./pages/Post'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const App = () => {
   useEffect(() => {
@@ -50,19 +51,29 @@ const App = () => {
       </nav>
       <Switch>
         <Route path='/about'>
-          <About />
+          <Suspense fallback={<div>loading...</div>}>
+            <About />
+          </Suspense>
         </Route>
         <Route path='/posts/:id'>
-          <Post />
+          <Suspense fallback={<div>loading...</div>}>
+            <Post />
+          </Suspense>
         </Route>
         <Route path='/posts'>
-          <Posts />
+          <Suspense fallback={<div>loading...</div>}>
+            <Posts />
+          </Suspense>
         </Route>
         <Route path='/' exact>
-          <Home />
+          <Suspense fallback={<div>loading...</div>}>
+            <Home />
+          </Suspense>
         </Route>
         <Route path='/404'>
-          <NotFound />
+          <Suspense fallback={<div>loading...</div>}>
+            <NotFound />
+          </Suspense>
         </Route>
         <Redirect to='/404' />
       </Switch>
